@@ -47,6 +47,31 @@ def submit_a_listing():
         redirect(URL('default', 'index'))
     return dict(my_username=my_username, form=form)
 
+@auth.requires_login()
+def delete():
+    p = db.bboard(request.args(0)) or redirect(URL('default', 'index'))
+    if p.user_id != auth.user_id:
+        session.flash = T('Not authorized.')
+        redirect(URL('default', 'index'))
+    db(db.bboard.id == p.id).delete()
+    redirect(URL('default', 'view_listing'))
+
+@auth.requires_login()
+def edit():
+    if auth.user is None:
+        my_username = ''
+    else:
+        my_username = auth.user.username
+    p = db.bboard(request.args(0)) or redirect(URL('default', 'index'))
+    if p.user_id != auth.user_id:
+        session.flash = T('Not authorized.')
+        redirect(URL('default', 'index'))
+    form = SQLFORM(db.bboard, record=p)
+    if form.process().accepted:
+        session.flash = T('Updated')
+        redirect(URL('default', 'view_listing'))
+    return dict(form=form, my_username=my_username)
+
 def view_listing():
     if auth.user is None:
         my_username = ''
@@ -70,7 +95,7 @@ def view_listing():
         return b
 
     def shorten_post(row):
-        return row.bbmessage[:10] + '...'
+        return row.bbmessage[:50] + '...'
 
     # Creates extra buttons.
 
@@ -91,6 +116,8 @@ def view_listing():
         editable=False, deletable=False,
         links=links,
         paginate=5,
+        csv=False,
+        create=False
         )
     return dict(my_username=my_username,form=form)
 
@@ -170,6 +197,26 @@ def user():
         db.auth_user.email.readable = db.auth_user.email.writable = False
     return dict(form=auth())
 
+def users():
+    """
+    exposes:
+    http://..../[app]/default/user/login
+    http://..../[app]/default/user/logout
+    http://..../[app]/default/user/register
+    http://..../[app]/default/user/profile
+    http://..../[app]/default/user/retrieve_password
+    http://..../[app]/default/user/change_password
+    http://..../[app]/default/user/manage_users (requires membership in
+    http://..../[app]/default/user/bulk_register
+    use @auth.requires_login()
+        @auth.requires_membership('group name')
+        @auth.requires_permission('read','table name',record_id)
+    to decorate functions that need access control
+    """
+    if request.args(0) == 'profile':
+        db.auth_user.username.readable = db.auth_user.username.writable = False
+        db.auth_user.email.readable = db.auth_user.email.writable = False
+    return dict(form=auth())
 
 @cache.action()
 def download():

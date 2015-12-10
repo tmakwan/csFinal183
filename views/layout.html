@@ -35,10 +35,10 @@
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
                         {{if auth.user is None:}}
-                        <li><a href="user/login"
+                        <li><a href="users/login"
                          data-toggle="modal"
                          data-target="#basicModal">Login</a></li>
-                        <li><a href="user/register"
+                        <li><a href="users/register"
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}

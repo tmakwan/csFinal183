@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Search</title>
+		<title>Submit A Listing</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -15,7 +15,6 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
 		<script src="js/init.js"></script>
-
 
         <link rel="stylesheet" href={{=URL('static','css_template/css/skel-noscript.css')}} />
         <link rel="stylesheet" href={{=URL('static','css_template/css/style.css')}} />
@@ -34,19 +33,17 @@
 						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
-
                         {{if auth.user is None:}}
-                        <li><a href="users/login"
+                        <li><a href="login"
                          data-toggle="modal"
                          data-target="#basicModal">Login</a></li>
-                        <li><a href="users/register"
+                        <li><a href="register"
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}
-
 					</ul>
 				</nav>
 			</div>
@@ -58,18 +55,86 @@
 					<span class="tag">The Official UCSC Market</span>
 				</div>
 			</div>
+
 		</div>
 	<!-- Header --> 
 
 	<!-- Main -->
 		<div id="main">
-			<div id="content" class="container">
-				<section>
-					<header>
-						<h2>Search</h2>
-					</header>
-                    {{=form}}
-				</section>
+			<div class="container">
+				<div class="row">
+
+					<!-- Sidebar -->
+					<div id="sidebar" class="4u">
+						<section>
+							<header>
+							</header>
+							<div class="row">
+								<section class="6u">
+									<ul class="default">
+
+									</ul>
+								</section>
+								<section class="6u">
+									<ul class="default">
+
+									</ul>
+								</section>
+							</div>
+						</section>
+						<section>
+							<header>
+							</header>
+							<ul class="style">
+							</ul>
+						</section>
+					</div>
+
+					<!-- Content -->
+					<div id="content" class="8u skel-cell-important">
+						<section>
+							<header>
+
+							</header>
+
+                            <h2>
+                            {{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
+                            </h2>
+
+                            <div class="container">
+                                <div class="row">
+                                    <div id="web2py_user_form" class="col-lg-6">
+                                    {{
+                                    if request.args(0)=='login':
+                                        if not 'register' in auth.settings.actions_disabled:
+                                            form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
+                                        pass
+                                        if not 'request_reset_password' in auth.settings.actions_disabled:
+                                            form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn btn-default')
+                                        pass
+                                    pass
+                                    =form
+                                    }}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {{block page_js}}
+                            <script>
+                                jQuery("#web2py_user_form input:visible:enabled:first").focus();
+                            {{if request.args(0)=='register':}}
+                                web2py_validate_entropy(jQuery('#auth_user_password'),100);
+                            {{elif request.args(0)=='change_password':}}
+                                web2py_validate_entropy(jQuery('#no_table_new_password'),100);
+                            {{pass}}
+                            </script>
+                            {{end page_js}}
+
+						</section>
+					</div>
+
+				</div>
 			</div>
 		</div>
 	<!-- /Main -->
