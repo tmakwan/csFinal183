@@ -1,0 +1,86 @@
+<link rel='ractive' href='Comment.html'>
+
+{{#each comments}}
+  <Comment author='{{author}}' text='{{text}}'/>
+{{/each}}
+
+<form on-submit='post(event, { author: author, text: text })'>
+  <!-- author name -->
+  <input class='author-name' value='{{author}}' placeholder='Your name' required>
+
+  <!-- comment body -->
+  <textarea value='{{text}}' placeholder='Say something...' required></textarea>
+
+  <!-- 'submit comment' button -->
+  <input type='submit' value='Submit comment'>
+</form>
+
+<style>
+  form {
+    position: relative;
+    padding: 0 0 0 10.5em;
+  }
+  
+  .author-name {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: inherit;
+    font-family: inherit;
+    width: 10em;
+    padding: 0.5em;
+    margin: 0;
+    border: 1px solid #eee;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+  
+  textarea {
+    font-size: inherit;
+    font-family: inherit;
+    width: 100%;
+    height: 5em;
+    padding: 0.5em;
+    border: 1px solid #eee;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+  
+  input[type="submit"] {
+    background-color: #729d34;
+    border: none;
+    padding: 0.5em;
+    font-size: inherit;
+    font-family: 'Voltaire';
+    color: white;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  
+  input[type="submit"]:hover, input[type="submit"]:focus {
+    opacity: 1;
+    outline: none;
+  }
+</style>
+
+<script>
+  component.exports = {
+    post: function ( event, comment ) {
+      // prevent the page from reloading
+      event.original.preventDefault();
+      
+      // add to the list of comments
+      this.push( 'comments', comment );
+      
+      // fire an event, so we can (for example)
+      // save the comment to our server
+      this.fire( 'newComment', comment );
+      
+      // reset the form
+      document.activeElement.blur();
+      this.set({ author: '', text: '' });
+    }
+  };
+</script>

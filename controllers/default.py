@@ -7,6 +7,9 @@
 ## - user is required for authentication and authorization
 ## - download is for downloading files uploaded in the db (does streaming)
 #########################################################################
+from gluon import utils as gluon_utils
+import json
+import time
 
 def index():
     """
@@ -35,6 +38,23 @@ def index():
             redirect(URL('default', 'user_profile', args=[username]))
     return dict(form=form, my_username=my_username)
 
+@auth.requires_signature()
+def load_messages():
+    """Loads all messages for the user."""
+    rows = db(db.post.author == auth.user_id).select()
+    d = {r.message_id: {'message_content': r.message_content,
+                        'is_draft': r.is_draft}
+         for r in rows}
+    return response.json(dict(msg_dict=d))
+
+@auth.requires_signature()
+def add_msg():
+    db.post.update_or_insert((db.post.message_id == request.vars.msg_id),
+            message_id=request.vars.msg_id,
+            message_content=request.vars.msg,
+            is_draft=json.loads(request.vars.is_draft))
+    return "ok"
+
 def submit_a_listing():
     if auth.user is None:
         my_username = ''
@@ -44,7 +64,7 @@ def submit_a_listing():
     if form.process().accepted:
         # Successful processing.
         session.flash = T("inserted")
-        redirect(URL('default', 'index'))
+        redirect(URL('default', 'view_listing'))
     return dict(my_username=my_username, form=form)
 
 @auth.requires_login()
@@ -170,11 +190,14 @@ def profile():
         print "print out form"
     else:
         print "no username founded, print out no such username try again"
-
-
+    draft_id = gluon_utils.web2py_uuid()
     return dict(user_name=user_name, user_images=user_images, my_username=my_username,
                 my_first=my_first, my_last=my_last, my_college=my_college, my_major=my_major,
-                my_gender=my_gender)
+                my_gender=my_gender, draft_id=draft_id)
+
+def comment():
+
+    return
 
 def user():
     """

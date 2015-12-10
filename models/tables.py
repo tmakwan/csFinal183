@@ -53,6 +53,13 @@ db.define_table('bboard',
                 Field('image', 'upload')
                 )
 
+db.define_table('post',
+             Field('author', db.auth_user, default=auth.user_id),
+             Field('message_content', 'text'),
+             Field('is_draft', 'boolean', default=False),
+             Field('message_id'), # To uniquely identify drafts and messages.
+            )
+
 db.bboard.id.readable = False
 db.bboard.bbmessage.label = 'Message'
 db.bboard.name.default = get_first_name()
