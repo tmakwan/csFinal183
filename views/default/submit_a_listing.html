@@ -41,6 +41,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'chat')}}>Chat</a></li>
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}

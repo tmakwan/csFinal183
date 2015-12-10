@@ -48,6 +48,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'chat')}}>Chat</a></li>
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}
@@ -74,6 +75,7 @@
 				<p>UCSC Students can now buy/sell/trade with each another in one convenient place.</p>
 				<hr />
 				<div class="row">
+
 					<section class="4u">
 						<span class="pennant"><span class="fa fa-pencil-square-o"></span></span>
 						<h3>Post</h3>

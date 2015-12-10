@@ -66,6 +66,12 @@ auth.settings.extra_fields['auth_user'] = [
     Field('Gender')
 ]
 
+db.define_table('chat',
+        Field('me_from'),
+        Field('me_body', 'text'),
+        Field('me_html', 'text'),
+        )
+
 
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)

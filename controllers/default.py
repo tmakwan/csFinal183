@@ -37,7 +37,10 @@ def index():
         #conditions
         if username:
             redirect(URL('default', 'user_profile', args=[username]))
-    return dict(form=form, my_username=my_username), chats.index(db)
+    return dict(form=form, my_username=my_username)
+
+def chat():
+    return chats.index(db)
 
 @auth.requires_signature()
 def message_new():
@@ -152,7 +155,8 @@ def view_listing():
         csv=False,
         create=False
         )
-    return dict(my_username=my_username,form=form)
+    draft_id = gluon_utils.web2py_uuid()
+    return dict(my_username=my_username,form=form,draft_id=draft_id)
 
 def search():
     if auth.user is None:

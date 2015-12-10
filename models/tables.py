@@ -15,6 +15,8 @@
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
 from datetime import datetime
+
+
 #Database for stored images
 db.define_table('images',
                 Field('picture', 'upload', uploadfield = 'picture_file'),
@@ -26,8 +28,6 @@ COLLEGES = ('College 10', 'College 9', 'Kresge',
 
 GENDER = ('Male', 'Female')
 
-db.auth_user.College.requires = IS_IN_SET(COLLEGES)
-db.auth_user.Gender.requires = IS_IN_SET(GENDER)
 
 def get_first_name():
     name = 'Nobody'
@@ -60,6 +60,8 @@ db.define_table('post',
              Field('message_id'), # To uniquely identify drafts and messages.
             )
 
+db.auth_user.College.requires = IS_IN_SET(COLLEGES)
+db.auth_user.Gender.requires = IS_IN_SET(GENDER)
 db.bboard.id.readable = False
 db.bboard.bbmessage.label = 'Message'
 db.bboard.name.default = get_first_name()
