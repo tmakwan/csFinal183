@@ -51,6 +51,7 @@ response.form_label_separator = myconf.take('forms.separator')
 ## (more options discussed in gluon/tools.py)
 #########################################################################
 
+
 from gluon.tools import Auth, Service, PluginManager
 
 auth = Auth(db)
@@ -64,6 +65,7 @@ auth.settings.extra_fields['auth_user'] = [
     Field('Major'),
     Field('Gender')
 ]
+
 
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)

@@ -37,7 +37,7 @@ def index():
         #conditions
         if username:
             redirect(URL('default', 'user_profile', args=[username]))
-    return dict(form=form, my_username=my_username, chats.index(db))
+    return dict(form=form, my_username=my_username), chats.index(db)
 
 @auth.requires_signature()
 def message_new():
