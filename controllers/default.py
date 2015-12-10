@@ -9,6 +9,7 @@
 #########################################################################
 from gluon import utils as gluon_utils
 import json
+import chats
 import time
 
 def index():
@@ -36,7 +37,19 @@ def index():
         #conditions
         if username:
             redirect(URL('default', 'user_profile', args=[username]))
-    return dict(form=form, my_username=my_username)
+    return dict(form=form, my_username=my_username, chats.index(db))
+
+@auth.requires_signature()
+def message_new():
+    return chats.message_new(db)
+
+@auth.requires_signature()
+def message_updates():
+    # need to unlock the session when using
+    # session file, should not be need it when
+    # using session in db, or in a cookie
+    session._unlock(response)
+    return chats.message_updates(db)
 
 @auth.requires_signature()
 def load_messages():
