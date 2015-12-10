@@ -40,16 +40,59 @@ def submit_a_listing():
         my_username = ''
     else:
         my_username = auth.user.username
-    response.flash = T("Hello World")
-    return dict(my_username=my_username)
+    form = SQLFORM(db.bboard)
+    if form.process().accepted:
+        # Successful processing.
+        session.flash = T("inserted")
+        redirect(URL('default', 'index'))
+    return dict(my_username=my_username, form=form)
 
 def view_listing():
     if auth.user is None:
         my_username = ''
     else:
         my_username = auth.user.username
-    response.flash = T("Hello World")
-    return dict(my_username=my_username)
+
+    q = db.bboard
+
+    def generate_del_button(row):
+        # If the record is ours, we can delete it.
+        b = ''
+        if auth.user_id == row.user_id:
+            b = A('Delete', _class='btn', _href=URL('default', 'delete', args=[row.id]))
+        return b
+
+    def generate_edit_button(row):
+        # If the record is ours, we can delete it.
+        b = ''
+        if auth.user_id == row.user_id:
+            b = A('Edit', _class='btn', _href=URL('default', 'edit', args=[row.id]))
+        return b
+
+    def shorten_post(row):
+        return row.bbmessage[:10] + '...'
+
+    # Creates extra buttons.
+
+    links = [
+        dict(header='', body = generate_del_button),
+        dict(header='', body = generate_edit_button),
+        ]
+
+    if len(request.args) == 0:
+        # We are in the main index.
+        links.append(dict(header='Post', body = shorten_post))
+        db.bboard.bbmessage.readable = False
+
+    form = SQLFORM.grid(q,
+        fields=[db.bboard.user_id, db.bboard.date_posted,
+                db.bboard.category, db.bboard.title,
+                db.bboard.bbmessage],
+        editable=False, deletable=False,
+        links=links,
+        paginate=5,
+        )
+    return dict(my_username=my_username,form=form)
 
 def search():
     if auth.user is None:
@@ -77,15 +120,16 @@ def profile():
         my_username = ''
     else:
         my_username = auth.user.username
+    user_name = request.args(0)
     #Note: Profile Details
-    my_first = auth.user.first_name
-    my_last = auth.user.last_name
-    my_college = auth.user.College
-    my_major = auth.user.Major
-    my_gender = auth.user.Gender
+    my_first = db(db.auth_user.username == user_name).select(db.auth_user.first_name)
+    my_last = db(db.auth_user.username == user_name).select(db.auth_user.last_name)
+    my_college = db(db.auth_user.username == user_name).select(db.auth_user.College)
+    my_major = db(db.auth_user.username == user_name).select(db.auth_user.Major)
+    my_gender = db(db.auth_user.username == user_name).select(db.auth_user.Gender)
     ##############################
 
-    user_name = request.args(0)
+
     user_images = db(db.auth_user.username == user_name).select()
     for row in db().select(db.auth_user.ALL):
         if row.username == user_name:
