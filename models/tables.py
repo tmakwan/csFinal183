@@ -35,7 +35,7 @@ def get_first_name():
         name = auth.user.first_name
     return name
 
-CATEGORY = ['Car', 'Bike', 'Books', 'Music', 'Outdoors', 'For the House', 'Misc.']
+CATEGORY = ['Books', 'Music', 'Outdoors', 'For the House', 'Misc.']
 SOLD = ['Sold', 'Still Available']
 
 
