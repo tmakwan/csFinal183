@@ -60,7 +60,9 @@ plugins = PluginManager()
 auth.settings.extra_fields['auth_user'] = [
     Field('username'),
     Field('image', 'upload'),
-    Field('College')
+    Field('College'),
+    Field('Major'),
+    Field('Gender')
 ]
 
 ## create all tables needed by auth if not custom tables

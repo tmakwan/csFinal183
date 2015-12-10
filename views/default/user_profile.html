@@ -1,8 +1,0 @@
-{{extend 'layout.html'}}
-<h1>{{=user_name}}</h1>
-
-
-{{for user_image in user_images:}}
-    <img src="{{=URL('default', 'download', args=user_image.image)}}" /> <br/>
-{{pass}}
-

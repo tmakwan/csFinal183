@@ -33,7 +33,6 @@
 						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
-                        <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         {{if auth.user is None:}}
                         <li><a href="user/login"
                          data-toggle="modal"
@@ -42,6 +41,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}
 
