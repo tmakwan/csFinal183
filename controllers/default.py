@@ -16,7 +16,7 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-
+    #Testing
     #Need to add something to store search variable in here
     if auth.user is None:
         my_username = ''
