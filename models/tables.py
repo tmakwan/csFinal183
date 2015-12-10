@@ -23,4 +23,9 @@ db.define_table('images',
 COLLEGES = ('College 10', 'College 9', 'Kresge',
             'Porter', 'Crown', 'Merill', 'Stevenson'
             'Cowell', 'Oakes', 'College 8')
+
+GENDER = ('Male', 'Female')
+
 db.auth_user.College.requires = IS_IN_SET(COLLEGES)
+db.auth_user.Gender.requires = IS_IN_SET(GENDER)
+

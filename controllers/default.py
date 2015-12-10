@@ -72,10 +72,19 @@ def search():
 
 
 def profile():
+
     if auth.user is None:
         my_username = ''
     else:
         my_username = auth.user.username
+    #Note: Profile Details
+    my_first = auth.user.first_name
+    my_last = auth.user.last_name
+    my_college = auth.user.College
+    my_major = auth.user.Major
+    my_gender = auth.user.Gender
+    ##############################
+
     user_name = request.args(0)
     user_images = db(db.auth_user.username == user_name).select()
     for row in db().select(db.auth_user.ALL):
@@ -92,7 +101,9 @@ def profile():
         print "no username founded, print out no such username try again"
 
 
-    return dict(user_name=user_name, user_images=user_images, my_username=my_username)
+    return dict(user_name=user_name, user_images=user_images, my_username=my_username,
+                my_first=my_first, my_last=my_last, my_college=my_college, my_major=my_major,
+                my_gender=my_gender)
 
 def user():
     """

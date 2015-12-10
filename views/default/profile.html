@@ -34,7 +34,6 @@
 						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
-                        <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         {{if auth.user is None:}}
                         <li><a href="user/login"
                          data-toggle="modal"
@@ -43,6 +42,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}
 					</ul>
@@ -66,10 +66,13 @@
 					<header>
 						<h2>Profile</h2>
 					</header>
-                    <h1>{{=user_name}}</h1>
-
+                    <p>First name: {{=my_first}}</p>
+                    <p>Last name: {{=my_last}}</p>
+                    <p>Major: {{=my_major}}</p>
+                    <p>Gender: {{=my_gender}}</p>
+                    <p>College: {{=my_college}}</p>
                     {{for user_image in user_images:}}
-                        <img src="{{=URL('default', 'download', args=user_image.image)}}" /> <br/>
+                        <img src="{{=URL('default', 'download', args=user_image.image)}}" width="150" height="150" /> <br/>
                     {{pass}}
 				</section>
 			</div>
