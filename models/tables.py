@@ -35,8 +35,8 @@ def get_first_name():
         name = auth.user.first_name
     return name
 
-CATEGORY = ['Books', 'Music', 'Outdoors', 'For the House', 'Misc.']
-SOLD = ['Sold', 'Still Available']
+CATEGORY = ['Books', 'Clothes', 'Housing', 'Delivery', 'Misc.']
+SOLD = ['Finished', 'Still Available']
 
 
 db.define_table('bboard',
@@ -45,7 +45,7 @@ db.define_table('bboard',
                 Field('phone'),
                 Field('email'),
                 Field('category'),
-                Field('sold'),
+                Field('status'),
                 Field('date_posted', 'datetime'),
                 Field('title'),
                 Field('price'),
@@ -74,9 +74,9 @@ db.bboard.email.requires = IS_EMAIL()
 db.bboard.category.requires = IS_IN_SET(CATEGORY)
 db.bboard.category.default = 'Misc'
 db.bboard.category.required = True
-db.bboard.sold.requires = IS_IN_SET(SOLD)
-db.bboard.sold.default = 'Still Available'
-db.bboard.sold.required = True
+db.bboard.status.requires = IS_IN_SET(SOLD)
+db.bboard.status.default = 'Still Available'
+db.bboard.status.required = True
 db.bboard.price.requires = IS_FLOAT_IN_RANGE(0, 100000.0, error_message='The price should be in the range 0..100000')
 db.bboard.phone.requires = IS_MATCH('^\d{10}$',
          error_message='not a phone number')

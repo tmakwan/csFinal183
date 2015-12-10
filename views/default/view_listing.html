@@ -43,7 +43,6 @@
 				<nav id="nav">
 					<ul>>
 						<li class="active"><a href={{=URL('default', 'index.html')}}>Homepage</a></li>
-						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
                         {{if auth.user is None:}}
@@ -54,6 +53,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
                         <li><a href={{=URL('default', 'chat')}}>Chat</a></li>
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
@@ -67,7 +67,7 @@
 				<!-- Logo -->
 				<div id="logo">
 					<h1><a href="#">SlugTrade</a></h1>
-					<span class="tag">The Official UCSC Market</span>
+					<span class="tag">A Marketplace For Students</span>
 				</div>
 			</div>
 		</div>
@@ -91,7 +91,7 @@
                             <div id="new_msg">
                               <form action="#" class="form-horizontal" enctype="multipart/form-data" method="post">
                               <div class="form-group" id="no_table_message__row">
-                              <label class="control-label col-sm-3" for="no_table_message" id="no_table_message__label">Message</label>
+                              <label class="control-label col-sm-3" for="no_table_message" id="no_table_message__label">Sticky Note</label>
                               <div class="col-sm-9">
                               <textarea value="{% active_draft %}" class="text form-control" cols="40" id="no_table_message" name="message" rows="10">
                               </textarea>

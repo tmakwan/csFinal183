@@ -37,7 +37,6 @@
 				<nav id="nav">
 					<ul>>
 						<li class="active"><a href={{=URL('default', 'index.html')}}>Homepage</a></li>
-						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
                         {{if auth.user is None:}}
@@ -48,6 +47,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
                         <li><a href={{=URL('default', 'chat')}}>Chat</a></li>
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
@@ -61,7 +61,7 @@
 			<!-- Logo -->
 				<div id="logo">
 					<h1><a href="#">SlugTrade</a></h1>
-					<span class="tag">The Official UCSC Marketplace</span>
+					<span class="tag">A Marketplace For Students</span>
 				</div>
 			</div>
 		</div>
@@ -119,14 +119,14 @@
 
 				<div class="row">
 					<section class="6u">
-						<a href="#" class="image full"><img src={{=URL('static','css_template/images/pic03.jpg')}} alt=""></a>
+						<a href="#" class="image full"><img src={{=URL('static','css_template/images/housing.jpg')}} alt=""></a>
 						<header>
 							<h2>Housing</h2>
 						</header>
 						<p>Need additional roommates for housing? Let people know!</p>
 					</section>
 					<section class="6u">
-						<a href="#" class="image full"><img src={{=URL('static','css_template/images/pic04.jpg')}} alt=""></a>
+						<a href="#" class="image full"><img src={{=URL('static','css_template/images/misc.jpg')}} alt=""></a>
 						<header>
 							<h2>Misc</h2>
 						</header>

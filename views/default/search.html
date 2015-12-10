@@ -31,7 +31,6 @@
 				<nav id="nav">
 					<ul>>
 						<li class="active"><a href={{=URL('default', 'index.html')}}>Homepage</a></li>
-						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
 
@@ -43,6 +42,7 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
+                        <li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
                         <li><a href={{=URL('default', 'chat')}}>Chat</a></li>
                         <li><a href={{=URL('default', 'profile', args=[my_username])}}>Profile</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
@@ -56,7 +56,7 @@
 				<!-- Logo -->
 				<div id="logo">
 					<h1><a href="#">SlugTrade</a></h1>
-					<span class="tag">a marketplace for students</span>
+					<span class="tag">A Marketplace For Students</span>
 				</div>
 			</div>
 		</div>

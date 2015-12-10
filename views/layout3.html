@@ -30,7 +30,6 @@
 				<nav id="nav">
 					<ul>>
 						<li class="active"><a href={{=URL('default', 'index.html')}}>Homepage</a></li>
-						<li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
 						<li><a href={{=URL('default', 'view_listing.html')}}>View Listings</a></li>
 						<li><a href={{=URL('default', 'search.html')}}>Search</a></li>
                         {{if auth.user is None:}}
@@ -41,18 +40,18 @@
                          data-toggle="modal"
                          data-target="#basicModal">Register</a></li>
                         {{else:}}
-
+                        <li><a href={{=URL('default', 'submit_a_listing.html')}}>Submit A Listing</a></li>
                         <li><a href={{=URL('default', 'user/logout')}}>Logout</a></li>
                         {{pass}}
 					</ul>
 				</nav>
 			</div>
-			<div class="container"> 
+			<div class="container">
 				
 				<!-- Logo -->
 				<div id="logo">
 					<h1><a href="#">SlugTrade</a></h1>
-					<span class="tag">The Official UCSC Market</span>
+					<span class="tag">A Marketplace For Students</span>
 				</div>
 			</div>
 
